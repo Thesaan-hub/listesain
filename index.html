@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liste d'aliments autorisés - Guide nutrition santé">
+    <title>Ma Liste Santé - Aliments Autorisés</title>
+    <style>
+        /* === Reset & Base === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+            color: #2E7D32;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        /* === Header === */
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        /* === Barre de recherche === */
+        .search-container {
+            max-width: 600px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+            border: 2px solid #81C784;
+            border-radius: 50px;
+            background: white;
+            color: #2E7D32;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        /* === Container principal === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* === Bouton retour === */
+        .back-button {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+        }
+
+        /* === Grille de catégories === */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+
+        .category-card:active {
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2E7D32;
+            line-height: 1.3;
+        }
+
+        .category-count {
+            font-size: 0.85rem;
+            color: #66BB6A;
+            margin-top: 0.25rem;
+        }
+
+        /* === Liste d'aliments === */
+        .food-list {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .food-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .food-item:hover {
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+            transform: translateX(3px);
+        }
+
+        .food-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2E7D32;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-details {
+            font-size: 0.9rem;
+            color: #558B2F;
+            margin-top: 0.5rem;
+        }
+
+        .food-details p {
+            margin: 0.3rem 0;
+        }
+
+        .food-details strong {
+            color: #33691E;
+        }
+
+        .detail-label {
+            display: inline-block;
+            background: #E8F5E9;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            color: #2E7D32;
+        }
+
+        /* === États === */
+        .hidden {
+            display: none !important;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #66BB6A;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* === Titre de page === */
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2E7D32;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .page-title .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* === Media queries === */
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .category-card {
+                padding: 2rem;
+            }
+
+            .category-icon {
+                font-size: 4rem;
+            }
+
+            .category-name {
+                font-size: 1rem;
+            }
+
+            .food-name {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* === Animations === */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-card, .food-item {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Ma Liste Santé</h1>
+        <p>Aliments autorisés pour toute la famille</p>
+    </header>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Barre de recherche -->
+        <div class="search-container">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Rechercher un aliment..."
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+
+        <!-- Bouton retour -->
+        <button class="back-button" id="backButton">
+            ← Retour aux catégories
+        </button>
+
+        <!-- Titre de page catégorie -->
+        <div class="page-title" id="pageTitle"></div>
+
+        <!-- Grille de catégories (landing page) -->
+        <div class="categories-grid" id="categoriesGrid"></div>
+
+        <!-- Liste d'aliments (page catégorie) -->
+        <div class="food-list" id="foodList"></div>
+
+        <!-- Message aucun résultat -->
+        <div class="no-results hidden" id="noResults">
+            <div class="no-results-icon">🔍</div>
+            <div class="no-results-text">Aucun aliment trouvé</div>
+        </div>
+    </div>
+
+    <script>
+        // === Données JSON ===
+        const foodData = [
+  {"name":"Poulet (sans peau)","category":"viandes_oeufs","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Dinde (sans peau)","category":"viandes_oeufs","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lapin","category":"viandes_oeufs","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Œuf (dur/poché ; privilégier le blanc)","category":"viandes_oeufs","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":"Limiter le jaune (riche en lipides)"},
+  {"name":"Sole","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Bar (loup de mer)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Colin (merlu)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Dorade","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Limande","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lieu","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Cabillaud (morue fraîche)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Merlan","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Truite (portion modérée)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":"Portion modérée ; cuisson sans MG"},
+  {"name":"Perche / Sandre","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Églefin (frais, non fumé)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lentilles vertes","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lentilles corail","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots blancs","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots rouges","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots noirs","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pois chiches","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pois cassés","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Fèves","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Soja (edamame)","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Tofu (nature, non frit)","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Carotte","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Courgette","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots verts","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Épinards","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Blettes (bettes)","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Brocoli","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Chou-fleur","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Potiron (citrouille)","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Courge butternut","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Aubergine","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Asperge","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Fenouil","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Navet","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Panais","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Chou kale","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Endive","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Céleri (branche ou rave)","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Petits pois","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Poireau","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Flocons d'avoine","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Riz complet","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Quinoa","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Boulgour","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Orge","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Millet","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pâtes complètes","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pain complet","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Patate douce","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pomme de terre","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Sarrasin","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pomme","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Poire","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Banane","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Melon","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Fraise","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Myrtille","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Framboise","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Mûre","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Papaye","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Cerise","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Pêche","category":"fruits_non_acides","prep_notes":"Frais et mûrs ; en compote sans sucre si besoin.","extra_notes":"Portions modérées (diabète)."},
+  {"name":"Lait écrémé (0%)","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Yaourt nature 0%","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Fromage blanc 0%","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Cottage cheese allégé","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Kéfir maigre nature","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Boisson soja (sans sucre, enrichie Ca)","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Boisson amande (sans sucre, enrichie Ca)","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Huile d'olive vierge (à cru, très petite quantité)","category":"matieres_grasses_limitees","prep_notes":"Usage à cru uniquement.","extra_notes":"1 c. à café max / prise, selon tolérance."},
+  {"name":"Huile de colza (à cru, très petite quantité)","category":"matieres_grasses_limitees","prep_notes":"Usage à cru uniquement.","extra_notes":"1 c. à café max / prise, selon tolérance."},
+  {"name":"Huile TCM / MCT (usage encadré)","category":"matieres_grasses_limitees","prep_notes":"À intégrer uniquement sur avis médical.","extra_notes":"Usage médical si besoin calorique."},
+  {"name":"Persil","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Thym","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Basilic","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Laurier","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Origan","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Aneth","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Cannelle","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Curcuma","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Gingembre","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Cumin","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Eau plate (non gazeuse)","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Tisane de menthe poivrée","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Tisane de gingembre","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Tisane de curcuma","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Tisane de camomille","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Bouillon de volaille dégraissé","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Bouillon de légumes maison (non salé)","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+  {"name":"Édulcorant (stevia, sucralose, aspartame)","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Gélatine/gelée sans sucre","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Compote de pommes sans sucre ajouté","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Crème de riz (bouillie)","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Tapioca (perles)","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pain grillé / Biscotte (sans sel)","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Soupe de légumes mixés (sans crème)","category":"autres_preparations","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Tilapia","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Pollock (colin d'Alaska)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Flétan","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Plie (flounder)","category":"poissons_maigres","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Blanc d'œuf (seul)","category":"viandes_oeufs","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":"Sans lipides ; omelette vapeur/poché."},
+  {"name":"Tofu soyeux (non frit)","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots pinto","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Haricots blancs (navy beans)","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lentilles brunes","category":"legumineuses_proteines_vegetales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Gombo (okra) cuit","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Champignons de Paris (cuits)","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Bok choy (chou chinois) cuit","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Artichaut (cœurs) bien cuits","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Betterave cuite","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Courge spaghetti","category":"legumes_cuits","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Couscous complet","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Polenta fine (maïs)","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Riz sauvage","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Son d'avoine","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Galettes de riz (sans sel)","category":"feculents_cereales","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Abricot (compote sans sucre)","category":"fruits_non_acides","prep_notes":"Compote sans sucre ajouté.","extra_notes":""},
+  {"name":"Coing (compote sans sucre)","category":"fruits_non_acides","prep_notes":"Compote sans sucre ajouté.","extra_notes":""},
+  {"name":"Skyr 0%","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Yaourt grec 0%","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Quark / Fromage frais 0%","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Lait écrémé sans lactose","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Boisson d'avoine (sans sucre)","category":"laitages_0_alternatives","prep_notes":"Cuisson douce (eau/vapeur), sans matière grasse ajoutée, non salé.","extra_notes":""},
+  {"name":"Ciboulette","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Coriandre","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Marjolaine","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""},
+  {"name":"Sauge","category":"herbes_epices_douces","prep_notes":"Assaisonnement doux ; sans piment/poivre.","extra_notes":""}
+];
+
+        // === Configuration des catégories ===
+        const categoryConfig = {
+            viandes_oeufs: {
+                name: "Viandes & Œufs",
+                icon: "🥩"
+            },
+            poissons_maigres: {
+                name: "Poissons Maigres",
+                icon: "🐟"
+            },
+            legumineuses_proteines_vegetales: {
+                name: "Légumineuses & Protéines Végétales",
+                icon: "🌱"
+            },
+            legumes_cuits: {
+                name: "Légumes Cuits",
+                icon: "🥦"
+            },
+            feculents_cereales: {
+                name: "Féculents & Céréales",
+                icon: "🌾"
+            },
+            fruits_non_acides: {
+                name: "Fruits Non Acides",
+                icon: "🍎"
+            },
+            laitages_0_alternatives: {
+                name: "Laitages 0% & Alternatives",
+                icon: "🥛"
+            },
+            matieres_grasses_limitees: {
+                name: "Matières Grasses Limitées",
+                icon: "🫒"
+            },
+            herbes_epices_douces: {
+                name: "Herbes & Épices Douces",
+                icon: "🌿"
+            },
+            boissons_bouillons: {
+                name: "Boissons & Bouillons",
+                icon: "☕"
+            },
+            autres_preparations: {
+                name: "Autres Préparations",
+                icon: "🍽️"
+            }
+        };
+
+        // === Variables globales ===
+        let currentCategory = null;
+        let allFoods = foodData;
+
+        // === Éléments DOM ===
+        const searchInput = document.getElementById('searchInput');
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const foodList = document.getElementById('foodList');
+        const backButton = document.getElementById('backButton');
+        const noResults = document.getElementById('noResults');
+        const pageTitle = document.getElementById('pageTitle');
+
+        // === Initialisation ===
+        function init() {
+            renderCategories();
+            setupEventListeners();
+        }
+
+        // === Rendu de la grille de catégories ===
+        function renderCategories() {
+            const categoryCounts = {};
+            allFoods.forEach(food => {
+                categoryCounts[food.category] = (categoryCounts[food.category] || 0) + 1;
+            });
+
+            categoriesGrid.innerHTML = '';
+            Object.entries(categoryConfig).forEach(([key, config]) => {
+                const count = categoryCounts[key] || 0;
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <span class="category-icon">${config.icon}</span>
+                    <div class="category-name">${config.name}</div>
+                    <div class="category-count">${count} aliment${count > 1 ? 's' : ''}</div>
+                `;
+                card.addEventListener('click', () => showCategory(key));
+                categoriesGrid.appendChild(card);
+            });
+        }
+
+        // === Affichage d'une catégorie ===
+        function showCategory(categoryKey) {
+            currentCategory = categoryKey;
+            const config = categoryConfig[categoryKey];
+
+            // Mise à jour de l'interface
+            categoriesGrid.style.display = 'none';
+            foodList.style.display = 'flex';
+            backButton.style.display = 'flex';
+            pageTitle.style.display = 'block';
+            pageTitle.innerHTML = `
+                <span class="icon">${config.icon}</span>
+                ${config.name}
+            `;
+
+            // Réinitialisation de la recherche
+            searchInput.value = '';
+
+            // Affichage des aliments
+            renderFoods(categoryKey);
+
+            // Scroll en haut
+            window.scrollTo(0, 0);
+        }
+
+        // === Rendu des aliments ===
+        function renderFoods(categoryKey, searchTerm = '') {
+            let foods = allFoods.filter(food => food.category === categoryKey);
+
+            if (searchTerm) {
+                foods = foods.filter(food =>
+                    food.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            // Tri alphabétique
+            foods.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+
+            foodList.innerHTML = '';
+
+            if (foods.length === 0) {
+                noResults.classList.remove('hidden');
+                foodList.style.display = 'none';
+            } else {
+                noResults.classList.add('hidden');
+                foodList.style.display = 'flex';
+
+                foods.forEach(food => {
+                    const item = document.createElement('div');
+                    item.className = 'food-item';
+
+                    let detailsHTML = '';
+                    if (food.prep_notes) {
+                        detailsHTML += `
+                            <div class="food-details">
+                                <span class="detail-label">🔥 Préparation</span>
+                                <p>${food.prep_notes}</p>
+                            </div>
+                        `;
+                    }
+                    if (food.extra_notes) {
+                        detailsHTML += `
+                            <div class="food-details">
+                                <span class="detail-label">💡 Note</span>
+                                <p>${food.extra_notes}</p>
+                            </div>
+                        `;
+                    }
+
+                    item.innerHTML = `
+                        <div class="food-name">${food.name}</div>
+                        ${detailsHTML}
+                    `;
+
+                    foodList.appendChild(item);
+                });
+            }
+        }
+
+        // === Recherche globale (landing page) ===
+        function globalSearch(searchTerm) {
+            if (!searchTerm) {
+                renderCategories();
+                return;
+            }
+
+            const results = allFoods.filter(food =>
+                food.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            categoriesGrid.innerHTML = '';
+
+            if (results.length === 0) {
+                categoriesGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem;">🔍</div>
+                        <div style="font-size: 1.1rem; color: #66BB6A; margin-top: 1rem;">
+                            Aucun aliment trouvé pour "${searchTerm}"
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Grouper par catégorie
+            const groupedResults = {};
+            results.forEach(food => {
+                if (!groupedResults[food.category]) {
+                    groupedResults[food.category] = [];
+                }
+                groupedResults[food.category].push(food);
+            });
+
+            // Afficher les résultats par catégorie
+            Object.entries(groupedResults).forEach(([categoryKey, foods]) => {
+                const config = categoryConfig[categoryKey];
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.style.gridColumn = '1/-1';
+                card.style.textAlign = 'left';
+                card.style.padding = '1.5rem';
+
+                const foodNames = foods.map(f => `<div style="padding: 0.5rem 0; border-bottom: 1px solid #E8F5E9; color: #558B2F;">${f.name}</div>`).join('');
+
+                card.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">${config.icon}</span>
+                        <div>
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #2E7D32;">${config.name}</div>
+                            <div style="font-size: 0.9rem; color: #66BB6A;">${foods.length} résultat${foods.length > 1 ? 's' : ''}</div>
+                        </div>
+                    </div>
+                    <div>${foodNames}</div>
+                `;
+
+                card.addEventListener('click', () => showCategory(categoryKey));
+                categoriesGrid.appendChild(card);
+            });
+        }
+
+        // === Retour à la page d'accueil ===
+        function goHome() {
+            currentCategory = null;
+            categoriesGrid.style.display = 'grid';
+            foodList.style.display = 'none';
+            backButton.style.display = 'none';
+            pageTitle.style.display = 'none';
+            noResults.classList.add('hidden');
+            searchInput.value = '';
+            renderCategories();
+            window.scrollTo(0, 0);
+        }
+
+        // === Configuration des événements ===
+        function setupEventListeners() {
+            // Recherche
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.trim();
+
+                if (currentCategory) {
+                    // Recherche dans une catégorie
+                    renderFoods(currentCategory, searchTerm);
+                } else {
+                    // Recherche globale
+                    globalSearch(searchTerm);
+                }
+            });
+
+            // Bouton retour
+            backButton.addEventListener('click', goHome);
+        }
+
+        // === Lancement de l'application ===
+        init();
+    </script>
+</body>
+</html>
