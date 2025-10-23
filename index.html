@@ -143,6 +143,26 @@
             transform: translateY(-2px);
         }
 
+        /* === Catégorie interdits (rouge) === */
+        .category-card.forbidden-category {
+            background: #FFEBEE;
+            border-color: #FFCDD2;
+        }
+
+        .category-card.forbidden-category:hover {
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+            border-color: #D32F2F;
+        }
+
+        .category-card.forbidden-category .category-name {
+            color: #C62828;
+            font-weight: 700;
+        }
+
+        .category-card.forbidden-category .category-count {
+            color: #EF5350;
+        }
+
         .category-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
@@ -181,6 +201,29 @@
         .food-item:hover {
             box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
             transform: translateX(3px);
+        }
+
+        /* === Aliments interdits (rouge) === */
+        .food-item.forbidden {
+            border-left: 4px solid #D32F2F;
+            background: #FFEBEE;
+        }
+
+        .food-item.forbidden:hover {
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .food-item.forbidden .food-name {
+            color: #C62828;
+        }
+
+        .food-item.forbidden .food-details {
+            color: #D32F2F;
+        }
+
+        .food-item.forbidden .detail-label {
+            background: #FFCDD2;
+            color: #B71C1C;
         }
 
         .food-name {
@@ -614,7 +657,62 @@
   {"name":"Boisson de cajou (sans sucre, enrichie Ca)","category":"laitages_0_alternatives","prep_notes":"Servir fraîche ; sans sucre ajouté.","extra_notes":""},
   {"name":"Lait écrémé en poudre reconstitué (0% MG)","category":"laitages_0_alternatives","prep_notes":"Reconstituer à l'eau ; servir nature.","extra_notes":""},
 
-  {"name":"Infusion de mélisse","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""}
+  {"name":"Infusion de mélisse","category":"boissons_bouillons","prep_notes":"Sans sucre ; tiède/à température ambiante.","extra_notes":""},
+
+  {"name":"Lait entier","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées"},
+  {"name":"Fromage gras","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées"},
+  {"name":"Beurre","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées"},
+  {"name":"Crème fraîche","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées"},
+  {"name":"Glace","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en sucres"},
+  {"name":"Yaourt aromatisé","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sucres ajoutés"},
+  {"name":"Frites","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riche en graisses saturées et en acides gras trans"},
+  {"name":"Poulet frit","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riche en graisses saturées"},
+  {"name":"Beignets","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en sucres"},
+  {"name":"Chips","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sel et en graisses trans/saturées"},
+  {"name":"Croissant","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en acides gras trans"},
+  {"name":"Pain au chocolat","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en sucres ajoutés"},
+  {"name":"Pain blanc","category":"aliments_interdits","prep_notes":"","extra_notes":"Indice glycémique élevé (faible fibres)"},
+  {"name":"Pâtes blanches","category":"aliments_interdits","prep_notes":"","extra_notes":"Indice glycémique élevé"},
+  {"name":"Riz blanc","category":"aliments_interdits","prep_notes":"","extra_notes":"Indice glycémique élevé"},
+  {"name":"Céréales petit-déjeuner sucrées","category":"aliments_interdits","prep_notes":"","extra_notes":"Riches en sucres ajoutés et IG élevé"},
+  {"name":"Pain de maïs","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sucres fermentescibles (glucides simples)"},
+  {"name":"Margarine","category":"aliments_interdits","prep_notes":"","extra_notes":"Contient des acides gras trans (risque cardiovasculaire)"},
+  {"name":"Soupe en conserve","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riche en sodium (sel)"},
+  {"name":"Sauce en conserve (ex: sauce tomate)","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riche en sodium (sel)"},
+  {"name":"Soupe instantanée","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sodium et additifs (sel)"},
+  {"name":"Plat préparé industriel","category":"aliments_interdits","prep_notes":"","extra_notes":"Souvent riche en graisses saturées, sucres et sodium"},
+  {"name":"Pizza","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en sel"},
+  {"name":"Lasagne","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées et en sodium"},
+  {"name":"Soda (boisson gazeuse)","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sucres ajoutés"},
+  {"name":"Jus d'orange industriel","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité très élevée et sucre (glucides rapides)"},
+  {"name":"Jus de citron (limonade sucrée)","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité gastrique très irritante"},
+  {"name":"Thé glacé sucré","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sucres ajoutés et en caféine"},
+  {"name":"Chocolat chaud","category":"aliments_interdits","prep_notes":"","extra_notes":"Contient du sucre, de la caféine et des produits laitiers gras"},
+  {"name":"Café","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique (acide, caféine)"},
+  {"name":"Thé (noir ou vert)","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique (acide, théine)"},
+  {"name":"Orange","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité élevée (irrite la muqueuse gastrique)"},
+  {"name":"Citron","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité élevée (irrite la muqueuse gastrique)"},
+  {"name":"Citron vert","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité élevée (irrite la muqueuse gastrique)"},
+  {"name":"Pamplemousse","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité élevée (irrite la muqueuse gastrique)"},
+  {"name":"Tomate crue","category":"aliments_interdits","prep_notes":"","extra_notes":"Acidité élevée (irrite la muqueuse gastrique)"},
+  {"name":"Ananas","category":"aliments_interdits","prep_notes":"","extra_notes":"IG élevé et acidité (irritant gastrique)"},
+  {"name":"Raisin frais","category":"aliments_interdits","prep_notes":"","extra_notes":"Indice glycémique élevé"},
+  {"name":"Mangue","category":"aliments_interdits","prep_notes":"","extra_notes":"Indice glycémique élevé"},
+  {"name":"Fruits en conserve","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sucres ajoutés"},
+  {"name":"Raisins secs","category":"aliments_interdits","prep_notes":"","extra_notes":"Riches en sucres concentrés (IG élevé)"},
+  {"name":"Noix","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en matières grasses (difficile à digérer)"},
+  {"name":"Amandes","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en matières grasses (difficile à digérer)"},
+  {"name":"Piment","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique puissant"},
+  {"name":"Poivron cru","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique (souvent mal toléré)"},
+  {"name":"Oignon cru","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique (souvent mal toléré cru)"},
+  {"name":"Ail cru","category":"aliments_interdits","prep_notes":"","extra_notes":"Irritant gastrique puissant"},
+  {"name":"Poisson fumé","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riche en sodium (conservateurs)"},
+  {"name":"Coquillages et crustacés (en conserve/fumés)","category":"aliments_interdits","prep_notes":"","extra_notes":"Très riches en sodium (sel)"},
+  {"name":"Sauce soja","category":"aliments_interdits","prep_notes":"","extra_notes":"Extrêmement riche en sodium (très salé)"},
+  {"name":"Bretzels","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en sodium (sel)"},
+  {"name":"Mayonnaise","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses saturées (huile, œuf)"},
+  {"name":"Barres chocolatées","category":"aliments_interdits","prep_notes":"","extra_notes":"Riches en sucres ajoutés et en graisses saturées"},
+  {"name":"Beurre de cacahuètes","category":"aliments_interdits","prep_notes":"","extra_notes":"Riche en graisses (dont saturées)"}
 ];
 
         // === Configuration des catégories ===
@@ -662,6 +760,10 @@
             autres_preparations: {
                 name: "Autres Préparations",
                 icon: "🍽️"
+            },
+            aliments_interdits: {
+                name: "⛔ Aliments INTERDITS",
+                icon: "🚫"
             }
         };
 
@@ -694,7 +796,7 @@
             Object.entries(categoryConfig).forEach(([key, config]) => {
                 const count = categoryCounts[key] || 0;
                 const card = document.createElement('div');
-                card.className = 'category-card';
+                card.className = key === 'aliments_interdits' ? 'category-card forbidden-category' : 'category-card';
                 card.innerHTML = `
                     <span class="category-icon">${config.icon}</span>
                     <div class="category-name">${config.name}</div>
@@ -754,7 +856,7 @@
 
                 foods.forEach(food => {
                     const item = document.createElement('div');
-                    item.className = 'food-item';
+                    item.className = food.category === 'aliments_interdits' ? 'food-item forbidden' : 'food-item';
 
                     let detailsHTML = '';
                     if (food.prep_notes) {
@@ -766,9 +868,10 @@
                         `;
                     }
                     if (food.extra_notes) {
+                        const label = food.category === 'aliments_interdits' ? '⛔ Raison d\'exclusion' : '💡 Note';
                         detailsHTML += `
                             <div class="food-details">
-                                <span class="detail-label">💡 Note</span>
+                                <span class="detail-label">${label}</span>
                                 <p>${food.extra_notes}</p>
                             </div>
                         `;
