@@ -921,23 +921,37 @@
                 groupedResults[food.category].push(food);
             });
 
+            // Trier pour mettre les aliments interdits EN PREMIER
+            const sortedEntries = Object.entries(groupedResults).sort(([keyA], [keyB]) => {
+                if (keyA === 'aliments_interdits') return -1;
+                if (keyB === 'aliments_interdits') return 1;
+                return 0;
+            });
+
             // Afficher les résultats par catégorie
-            Object.entries(groupedResults).forEach(([categoryKey, foods]) => {
+            sortedEntries.forEach(([categoryKey, foods]) => {
                 const config = categoryConfig[categoryKey];
                 const card = document.createElement('div');
-                card.className = 'category-card';
+                const isForbidden = categoryKey === 'aliments_interdits';
+                card.className = isForbidden ? 'category-card forbidden-category' : 'category-card';
                 card.style.gridColumn = '1/-1';
                 card.style.textAlign = 'left';
                 card.style.padding = '1.5rem';
 
-                const foodNames = foods.map(f => `<div style="padding: 0.5rem 0; border-bottom: 1px solid #E8F5E9; color: #558B2F;">${f.name}</div>`).join('');
+                // Style différent pour les aliments interdits (rouge) vs autorisés (vert)
+                const borderColor = isForbidden ? '#FFCDD2' : '#E8F5E9';
+                const textColor = isForbidden ? '#C62828' : '#558B2F';
+                const titleColor = isForbidden ? '#C62828' : '#2E7D32';
+                const countColor = isForbidden ? '#EF5350' : '#66BB6A';
+
+                const foodNames = foods.map(f => `<div style="padding: 0.5rem 0; border-bottom: 1px solid ${borderColor}; color: ${textColor}; font-weight: ${isForbidden ? '600' : 'normal'};">${isForbidden ? '🚫 ' : ''}${f.name}</div>`).join('');
 
                 card.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                         <span style="font-size: 2rem;">${config.icon}</span>
                         <div>
-                            <div style="font-size: 1.1rem; font-weight: 700; color: #2E7D32;">${config.name}</div>
-                            <div style="font-size: 0.9rem; color: #66BB6A;">${foods.length} résultat${foods.length > 1 ? 's' : ''}</div>
+                            <div style="font-size: 1.1rem; font-weight: 700; color: ${titleColor};">${config.name}</div>
+                            <div style="font-size: 0.9rem; color: ${countColor};">${foods.length} résultat${foods.length > 1 ? 's' : ''}</div>
                         </div>
                     </div>
                     <div>${foodNames}</div>
