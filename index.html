@@ -163,6 +163,26 @@
             color: #EF5350;
         }
 
+        /* === Catégorie avec modération (orange) === */
+        .category-card.moderation-category {
+            background: #FFF3E0;
+            border-color: #FFE0B2;
+        }
+
+        .category-card.moderation-category:hover {
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
+            border-color: #FF9800;
+        }
+
+        .category-card.moderation-category .category-name {
+            color: #E65100;
+            font-weight: 700;
+        }
+
+        .category-card.moderation-category .category-count {
+            color: #FB8C00;
+        }
+
         .category-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
@@ -224,6 +244,29 @@
         .food-item.forbidden .detail-label {
             background: #FFCDD2;
             color: #B71C1C;
+        }
+
+        /* === Aliments avec modération (orange) === */
+        .food-item.moderation {
+            border-left: 4px solid #FF9800;
+            background: #FFF3E0;
+        }
+
+        .food-item.moderation:hover {
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+
+        .food-item.moderation .food-name {
+            color: #E65100;
+        }
+
+        .food-item.moderation .food-details {
+            color: #F57C00;
+        }
+
+        .food-item.moderation .detail-label {
+            background: #FFE0B2;
+            color: #E65100;
         }
 
         .food-name {
@@ -852,7 +895,55 @@
   {"name":"Thon à l'huile (en boîte)","category":"aliments_interdits","prep_notes":"","extra_notes":"Huile + sodium (pancréatite/HTA)"},
   {"name":"Gazpacho","category":"aliments_interdits","prep_notes":"","extra_notes":"Tomate + vinaigre (gastrite)"},
   {"name":"Ratatouille riche en huile (à la tomate)","category":"aliments_interdits","prep_notes":"","extra_notes":"Huile abondante + tomate acide (pancréatite/gastrite)"},
-  {"name":"Tomates séchées à l'huile","category":"aliments_interdits","prep_notes":"","extra_notes":"Tomate concentrée acide + huile (gastrite/pancréatite)"}
+  {"name":"Tomates séchées à l'huile","category":"aliments_interdits","prep_notes":"","extra_notes":"Tomate concentrée acide + huile (gastrite/pancréatite)"},
+
+  {"name":"Semoule de blé dur blanche (vapeur, nature)","category":"feculents_cereales","prep_notes":"Cuire à la vapeur, sans huile, sans sauce acide.","extra_notes":"≤ 60 g (poids sec) par repas, max 2 fois/sem.","moderation":true,"why_moderation":"Amidon raffiné → pics glycémiques [DT2] ; fractionner pour ménager la vidange gastrique [Gastrite]."},
+  {"name":"Batbout nature, cuisson sèche","category":"feculents_cereales","prep_notes":"Cuisson sur plaque/poêle antiadhésive, sans huile; pauvre en sel.","extra_notes":"½ petit pain (≈30 g) par repas, 3 fois/sem.","moderation":true,"why_moderation":"Pain blanc parfois salé → charge glucidique à contrôler [DT2] et sodium à surveiller [HTA]."},
+  {"name":"Couscous de blé dur blanc (vapeur, nature)","category":"feculents_cereales","prep_notes":"Humidifier à l'eau/bouillon non salé, sans huile.","extra_notes":"≤ 60 g (poids sec) par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Semoule raffinée → élève la glycémie si portion trop grande [DT2]; petites portions mieux tolérées [Gastrite]."},
+  {"name":"Orzo (pâtes grecques) blanc bien cuit","category":"feculents_cereales","prep_notes":"Cuire à l'eau; rincer; sans sauce grasse.","extra_notes":"≤ 60 g (poids sec) par repas, 1 fois/sem.","moderation":true,"why_moderation":"Pâtes blanches (IG modéré/élevé) → contrôler la portion pour limiter l'hyperglycémie post-prandiale [DT2]."},
+  {"name":"Pain d'épeautre demi-complet (pauvre en sel)","category":"feculents_cereales","prep_notes":"Tranches fines; toaster légèrement.","extra_notes":"1 tranche (≈25 g) par repas, 3–4 fois/sem.","moderation":true,"why_moderation":"Apporte des glucides → limiter la quantité pour la glycémie [DT2]; sel à maintenir bas [HTA]."},
+  {"name":"Galette d'avoine (cuite à sec, sans graisse)","category":"feculents_cereales","prep_notes":"Cuisson sur poêle antiadhésive; sans huile.","extra_notes":"1 petite galette (≈30 g) par repas, 2–3 fois/sem.","moderation":true,"why_moderation":"Charge glucidique à doser [DT2]; fibres parfois fermentescibles si excès [Gastrite]."},
+  {"name":"Bissara allégée (purée de fèves, sans huile)","category":"legumineuses_proteines_vegetales","prep_notes":"Fèves très cuites, mixées; herbes douces; sans huile.","extra_notes":"≈ 120 ml par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Légumineuses riches en FODMAPs → ballonnements/pression gastrique [Gastrite]; glucides à compter [DT2]."},
+  {"name":"Veau (escalope) très maigre","category":"viandes_oeufs","prep_notes":"Cuisson vapeur/eau; sans sauce; retirer toute graisse visible.","extra_notes":"60–80 g par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"La protéine stimule l'excrétion pancréatique → petites portions en convalescence [Pancréatite biliaire]."},
+  {"name":"Bœuf maigre (rumsteck dégraissé)","category":"viandes_oeufs","prep_notes":"Cuisson à l'eau/vapeur ou grill antiadhésif; sans matière grasse.","extra_notes":"60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Viande rouge un peu plus riche en graisses saturées → prudence [Cœur] et charge pancréatique [Pancréatite biliaire]."},
+  {"name":"Agneau (gigot dégraissé, sans peau)","category":"viandes_oeufs","prep_notes":"Cuisson douce; retirer tout gras; sans sauce.","extra_notes":"50–60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Graisses résiduelles/saturées → à limiter pour le pancréas [Pancréatite biliaire] et le profil cardiovasculaire [Cœur]."},
+  {"name":"Dinde (cuisse sans peau) mijotée à l'eau","category":"viandes_oeufs","prep_notes":"Cuire longuement à l'eau; effilocher; sans sauce.","extra_notes":"60–80 g par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Un peu plus grasse que le blanc → portion modérée pour réduire la stimulation pancréatique [Pancréatite biliaire]."},
+  {"name":"Œuf entier (préparations sans gras)","category":"viandes_oeufs","prep_notes":"Œuf dur/poché, sans mayonnaise; privilégier le blanc.","extra_notes":"1 œuf (ou 1/2 si autres lipides au repas), 2 fois/sem.","moderation":true,"why_moderation":"Le jaune stimule la sécrétion bilio-pancréatique → limiter le jaune [Pancréatite biliaire] et graisses saturées [Cœur]."},
+  {"name":"Saumon frais (portion réduite, vapeur)","category":"poissons_maigres","prep_notes":"Cuisson vapeur/papillote sans huile; sans peau.","extra_notes":"50–60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Poisson plus gras : oméga-3 utiles mais lipides totaux à restreindre pour ménager le pancréas [Pancréatite biliaire] et la charge calorique [DT2]."},
+  {"name":"Sardines fraîches (grillées à sec, sans peau)","category":"poissons_maigres","prep_notes":"Grill antiadhésif; aucune huile ajoutée; retirer peau.","extra_notes":"50 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Gras naturels cardioprotecteurs mais à petite portion pour limiter la charge lipidique [Pancréatite biliaire/Cœur]."},
+  {"name":"Maquereau frais (vapeur, portion réduite)","category":"poissons_maigres","prep_notes":"Cuisson vapeur; éviter peau; sans sauce.","extra_notes":"50 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Poisson gras → limiter pour éviter la stimulation pancréatique [Pancréatite biliaire] malgré bénéfice oméga-3 [Cœur]."},
+  {"name":"Thon frais (grillé à sec, cuisson rosée)","category":"poissons_maigres","prep_notes":"Grill antiadhésif; sans huile; portion contrôlée.","extra_notes":"60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Modérément gras → quantité contrôlée pour la charge pancréatique [Pancréatite biliaire] et la glycémie globale [DT2]."},
+  {"name":"Oignon très cuit à l'eau","category":"legumes_cuits","prep_notes":"Cuire longuement à l'eau; pas de rissolage; bien fondant.","extra_notes":"≤ 40 g par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Fructanes fermentescibles → gaz/inconfort ; très cuit et petites portions [Gastrite]."},
+  {"name":"Laitue tendre finement émincée (privilégier cuit si besoin)","category":"legumes_cuits","prep_notes":"Idéalement blanchir/étuver; si cru : quelques feuilles, bien mâchées, sans vinaigre/citron.","extra_notes":"≤ 30 g par repas, 2 fois/sem.","moderation":true,"why_moderation":"Fibres crues parfois irritantes → petite quantité, éviter l'acidité [Gastrite]."},
+  {"name":"Concombre pelé, épépiné (privilégier cuit si sensible)","category":"legumes_cuits","prep_notes":"Servir sans peau ni pépins; éventuellement pocher brièvement; pas d'acide.","extra_notes":"≤ 40 g par repas, 2 fois/sem.","moderation":true,"why_moderation":"Peut provoquer ballonnements/éructations → tester en petite portion [Gastrite]."},
+  {"name":"Courgette râpée crue (très petite portion)","category":"legumes_cuits","prep_notes":"Râper fin; ou cuire/mixer pour meilleure tolérance; éviter épices/piquant.","extra_notes":"≤ 30 g par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Crudité fibreuse → possible gêne gastrique ; préférer cuit si sensibilité [Gastrite]."},
+  {"name":"Chou de Bruxelles très cuit, mixé si besoin","category":"legumes_cuits","prep_notes":"Cuire longuement; écraser/mixer pour limiter ballonnements.","extra_notes":"≤ 50 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Riche en FODMAPs → gaz/douleur ; bien cuire et limiter [Gastrite]."},
+  {"name":"Chou blanc très cuit à l'eau","category":"legumes_cuits","prep_notes":"Cuire jusqu'à très tendre; éviter graisses/acides.","extra_notes":"≤ 60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Fermentescible et irritant s'il est insuffisamment cuit → petite portion [Gastrite]."},
+  {"name":"Prune jaune bien mûre","category":"fruits_non_acides","prep_notes":"Dénoyauter; choisir maturité optimale.","extra_notes":"1 petite (≈50 g) par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Sorbitol/fructose → risque de pics glycémiques et de ballonnements si excès [DT2/Gastrite]."},
+  {"name":"Lait demi-écrémé (sans lactose si besoin)","category":"laitages_0_alternatives","prep_notes":"Servir nature/tiède; éviter ajouts sucrés.","extra_notes":"150 ml par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Lactose et un peu de gras → tester la tolérance digestive [Gastrite] et ménager le pancréas [Pancréatite biliaire]."},
+  {"name":"Ricotta légère (≈5% MG) non salée","category":"laitages_0_alternatives","prep_notes":"À la cuillère; sans pain gras; pas d'ajout salé.","extra_notes":"30–35 g par prise, 2 fois/sem.","moderation":true,"why_moderation":"Apport lipidique/sodium non nuls → petites portions [Pancréatite biliaire/HTA/Cœur]."},
+  {"name":"Fromage allégé (10–15% MG) non salé","category":"laitages_0_alternatives","prep_notes":"Servir nature; éviter tomate/acide.","extra_notes":"30 g par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Reste source de graisses/sodium → limiter pour pancréas et tension artérielle [Pancréatite biliaire/HTA/Cœur]."},
+  {"name":"Labneh allégé (2–3% MG), non salé","category":"laitages_0_alternatives","prep_notes":"À la cuillère; assaisonnement herbes douces.","extra_notes":"30 g par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Légèrement acide et contient du lactose → petites quantités selon tolérance [Gastrite]; lipides à surveiller [Pancréatite biliaire]."},
+  {"name":"Lben écrémé nature","category":"laitages_0_alternatives","prep_notes":"Servir froid/tiède; sans sucre; vérifier tolérance.","extra_notes":"120–150 ml par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Acidité et lactose possibles → limiter le volume si reflux/irritation [Gastrite]."},
+  {"name":"Yaourt nature 1,5–3,5% MG (sans sucre)","category":"laitages_0_alternatives","prep_notes":"Servir frais; nature; vérifier tolérance gastrique.","extra_notes":"1 pot petit (≈100 g) par prise, 2 fois/sem.","moderation":true,"why_moderation":"Un peu de lipides et d'acidité/lactose → portion modérée selon tolérance [Pancréatite biliaire/Gastrite]."},
+  {"name":"Fromage frais de chèvre (≤10% MG) non salé","category":"laitages_0_alternatives","prep_notes":"Petite portion; sans pain gras/salé.","extra_notes":"20–25 g par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Graisses/sodium non nuls → petites portions pour ménager pancréas et tension [Pancréatite biliaire/HTA/Cœur]."},
+  {"name":"Paprika doux fumé (piment non piquant)","category":"herbes_epices_douces","prep_notes":"Pincée en fin de cuisson; éviter doses fortes.","extra_notes":"≤ ¼ c. à café par repas, 2–3 fois/sem.","moderation":true,"why_moderation":"Arôme fumé/épices légères pouvant irriter à forte dose [Gastrite]."},
+  {"name":"Ras el hanout doux (sans piment/poivre)","category":"herbes_epices_douces","prep_notes":"Pincée en fin de cuisson; vérifier tolérance.","extra_notes":"≤ ¼ c. à café par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Mélange d'épices : certaines composantes peuvent irriter si dose élevée [Gastrite]."},
+  {"name":"Fenugrec en infusion douce","category":"herbes_epices_douces","prep_notes":"Infusion légère; éviter graines entières en excès.","extra_notes":"100–120 ml d'infusion par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Peut abaisser la glycémie → surveiller traitements [DT2]; éviter concentration forte si sensibilité digestive [Gastrite]."},
+  {"name":"Graines de sésame (non grillées)","category":"matieres_grasses_limitees","prep_notes":"Saupoudrer parcimonieusement; pas de tahini.","extra_notes":"≤ ½ c. à café par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Denses en lipides → très petites quantités pour ménager le pancréas [Pancréatite biliaire] et l'apport énergétique [DT2]."},
+  {"name":"Feuilles de menthe douce fraîches (hors thé caféiné)","category":"herbes_epices_douces","prep_notes":"Ajouter entières hachées; éviter mélange acide.","extra_notes":"1–2 c. à soupe par repas, 3 fois/sem.","moderation":true,"why_moderation":"Peut relâcher le sphincter œsophagien et majorer reflux/pyrosis [Gastrite]."},
+  {"name":"Thé à la menthe décaféiné (non sucré)","category":"boissons_bouillons","prep_notes":"Infusion courte; sans sucre/miel.","extra_notes":"150–200 ml par prise, 3–4 fois/sem.","moderation":true,"why_moderation":"Tanin/légère acidité → éviter gros volumes ou prise à jeun [Gastrite]."},
+  {"name":"Aubergine au four sans huile (chair seule)","category":"legumes_cuits","prep_notes":"Cuire sur papier; retirer peau; écraser nature.","extra_notes":"≤ 80 g par repas, 2 fois/sem.","moderation":true,"why_moderation":"Fibres encore présentes; peau irritante → retirer la peau et limiter la portion [Gastrite]."},
+  {"name":"Courge spaghetti (sans sauce)","category":"legumes_cuits","prep_notes":"Cuire au four/eau; effilocher; herbes douces.","extra_notes":"≤ 100 g par repas, 2 fois/sem.","moderation":true,"why_moderation":"Apporte des glucides → contrôler la portion pour la glycémie [DT2]."},
+  {"name":"Poireau (vert) bien cuit, mixé","category":"legumes_cuits","prep_notes":"Cuire longuement; mixer en velouté sans crème.","extra_notes":"≤ 60 g par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Fructanes (FODMAPs) → possibles gaz; bien cuire et limiter [Gastrite]."},
+  {"name":"Asperge verte bien cuite (pointes)","category":"legumes_cuits","prep_notes":"Cuire jusqu'à tendre; couper pointes uniquement.","extra_notes":"≤ 60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Peut fermenter chez certains → petite portion pour éviter l'inconfort [Gastrite]."},
+  {"name":"Pleurotes (champignons) bien cuits","category":"legumes_cuits","prep_notes":"Cuire à l'eau/étuver; éviter matière grasse.","extra_notes":"≤ 60 g par repas, 1 fois/sem.","moderation":true,"why_moderation":"Polyols/FODMAPs → risque de ballonnements ; portion modérée [Gastrite]."},
+  {"name":"Galettes de maïs (maison) sans sel ni huile","category":"feculents_cereales","prep_notes":"Cuisson à sec; pâte très hydratée; fine.","extra_notes":"1 petite (≈12–15 g) par repas, 1–2 fois/sem.","moderation":true,"why_moderation":"Amidon rapidement absorbé → possible pic glycémique si portion trop grande [DT2]."},
+  {"name":"Semoule d'orge grillée à sec réhydratée à l'eau","category":"feculents_cereales","prep_notes":"Griller à sec; reconstituer à l'eau; sans sucre/huiles.","extra_notes":"1–2 c. à soupe (≈15–20 g) par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Glucides à modérer malgré les fibres pour stabiliser la glycémie [DT2]."},
+  {"name":"Câpres dessalées abondamment","category":"autres_preparations","prep_notes":"Rincer longuement; hacher fin; pas d'acide ajouté.","extra_notes":"½ c. à café par repas, 1 fois/sem.","moderation":true,"why_moderation":"Sodium résiduel possible → n'utiliser qu'une pincée pour ne pas majorer la pression artérielle [HTA/Cœur]."},
+  {"name":"Olives dessalées (trempage prolongé), émincées","category":"matieres_grasses_limitees","prep_notes":"Dessaler 24–48 h; égoutter; utiliser parcimonieusement.","extra_notes":"2 olives finement hachées par repas, 1 fois/sem.","moderation":true,"why_moderation":"Denses en lipides et parfois salées → très petites quantités [Pancréatite biliaire/HTA]."},
+  {"name":"Tisane de mélisse (non sucrée)","category":"boissons_bouillons","prep_notes":"Infusion douce; tiède.","extra_notes":"150 ml par prise, 2–3 fois/sem.","moderation":true,"why_moderation":"Généralement bien tolérée, mais éviter grands volumes qui distendent l'estomac [Gastrite]."},
+  {"name":"Infusion de fleur d'oranger très diluée","category":"boissons_bouillons","prep_notes":"Quelques gouttes dans eau chaude; sans sucre.","extra_notes":"100–150 ml par prise, 1–2 fois/sem.","moderation":true,"why_moderation":"Arôme concentré possible : utiliser très dilué et en petite tasse pour limiter l'irritation [Gastrite]."}
 ];
 
         // === Configuration des catégories ===
@@ -901,6 +992,10 @@
                 name: "Autres Préparations",
                 icon: "🍽️"
             },
+            avec_precaution_moderation: {
+                name: "⚠️ Avec précaution et MODÉRATION",
+                icon: "🚨"
+            },
             aliments_interdits: {
                 name: "⛔ Aliments INTERDITS",
                 icon: "🚫"
@@ -932,11 +1027,19 @@
                 categoryCounts[food.category] = (categoryCounts[food.category] || 0) + 1;
             });
 
+            // Compter les aliments avec modération
+            const moderationCount = allFoods.filter(food => food.moderation === true).length;
+            categoryCounts['avec_precaution_moderation'] = moderationCount;
+
             categoriesGrid.innerHTML = '';
             Object.entries(categoryConfig).forEach(([key, config]) => {
                 const count = categoryCounts[key] || 0;
                 const card = document.createElement('div');
-                card.className = key === 'aliments_interdits' ? 'category-card forbidden-category' : 'category-card';
+                // Appliquer les classes CSS appropriées
+                let cardClass = 'category-card';
+                if (key === 'aliments_interdits') cardClass += ' forbidden-category';
+                if (key === 'avec_precaution_moderation') cardClass += ' moderation-category';
+                card.className = cardClass;
                 card.innerHTML = `
                     <span class="category-icon">${config.icon}</span>
                     <div class="category-name">${config.name}</div>
@@ -974,7 +1077,14 @@
 
         // === Rendu des aliments ===
         function renderFoods(categoryKey, searchTerm = '') {
-            let foods = allFoods.filter(food => food.category === categoryKey);
+            // Si c'est la catégorie avec modération, filtrer par moderation: true
+            // Sinon, filtrer par catégorie normale
+            let foods;
+            if (categoryKey === 'avec_precaution_moderation') {
+                foods = allFoods.filter(food => food.moderation === true);
+            } else {
+                foods = allFoods.filter(food => food.category === categoryKey);
+            }
 
             if (searchTerm) {
                 foods = foods.filter(food =>
@@ -996,7 +1106,14 @@
 
                 foods.forEach(food => {
                     const item = document.createElement('div');
-                    item.className = food.category === 'aliments_interdits' ? 'food-item forbidden' : 'food-item';
+                    // Appliquer la classe appropriée
+                    if (food.category === 'aliments_interdits') {
+                        item.className = 'food-item forbidden';
+                    } else if (food.moderation === true) {
+                        item.className = 'food-item moderation';
+                    } else {
+                        item.className = 'food-item';
+                    }
 
                     let detailsHTML = '';
                     if (food.prep_notes) {
@@ -1008,7 +1125,12 @@
                         `;
                     }
                     if (food.extra_notes) {
-                        const label = food.category === 'aliments_interdits' ? '⛔ Raison d\'exclusion' : '💡 Note';
+                        let label = '💡 Note';
+                        if (food.category === 'aliments_interdits') {
+                            label = '⛔ Raison d\'exclusion';
+                        } else if (food.moderation === true) {
+                            label = '⚠️ Dosage recommandé';
+                        }
                         detailsHTML += `
                             <div class="food-details">
                                 <span class="detail-label">${label}</span>
@@ -1016,9 +1138,17 @@
                             </div>
                         `;
                     }
+                    if (food.why_moderation) {
+                        detailsHTML += `
+                            <div class="food-details">
+                                <span class="detail-label">🚨 Pourquoi avec modération ?</span>
+                                <p>${food.why_moderation}</p>
+                            </div>
+                        `;
+                    }
 
                     item.innerHTML = `
-                        <div class="food-name">${food.name}</div>
+                        <div class="food-name">${food.moderation === true ? '⚠️ ' : ''}${food.name}</div>
                         ${detailsHTML}
                     `;
 
@@ -1073,18 +1203,51 @@
                 const config = categoryConfig[categoryKey];
                 const card = document.createElement('div');
                 const isForbidden = categoryKey === 'aliments_interdits';
-                card.className = isForbidden ? 'category-card forbidden-category' : 'category-card';
+
+                // Déterminer si la catégorie contient des aliments avec modération
+                const hasModeration = foods.some(f => f.moderation === true);
+
+                // Appliquer la classe CSS appropriée
+                let cardClass = 'category-card';
+                if (isForbidden) cardClass += ' forbidden-category';
+                else if (hasModeration) cardClass += ' moderation-category';
+                card.className = cardClass;
+
                 card.style.gridColumn = '1/-1';
                 card.style.textAlign = 'left';
                 card.style.padding = '1.5rem';
 
-                // Style différent pour les aliments interdits (rouge) vs autorisés (vert)
-                const borderColor = isForbidden ? '#FFCDD2' : '#E8F5E9';
-                const textColor = isForbidden ? '#C62828' : '#558B2F';
-                const titleColor = isForbidden ? '#C62828' : '#2E7D32';
-                const countColor = isForbidden ? '#EF5350' : '#66BB6A';
+                // Style différent selon le type (rouge/orange/vert)
+                let borderColor, textColor, titleColor, countColor;
+                if (isForbidden) {
+                    borderColor = '#FFCDD2';
+                    textColor = '#C62828';
+                    titleColor = '#C62828';
+                    countColor = '#EF5350';
+                } else if (hasModeration) {
+                    borderColor = '#FFE0B2';
+                    textColor = '#E65100';
+                    titleColor = '#E65100';
+                    countColor = '#FB8C00';
+                } else {
+                    borderColor = '#E8F5E9';
+                    textColor = '#558B2F';
+                    titleColor = '#2E7D32';
+                    countColor = '#66BB6A';
+                }
 
-                const foodNames = foods.map(f => `<div style="padding: 0.5rem 0; border-bottom: 1px solid ${borderColor}; color: ${textColor}; font-weight: ${isForbidden ? '600' : 'normal'};">${isForbidden ? '🚫 ' : ''}${f.name}</div>`).join('');
+                const foodNames = foods.map(f => {
+                    let icon = '';
+                    let fontWeight = 'normal';
+                    if (f.category === 'aliments_interdits') {
+                        icon = '🚫 ';
+                        fontWeight = '600';
+                    } else if (f.moderation === true) {
+                        icon = '⚠️ ';
+                        fontWeight = '600';
+                    }
+                    return `<div style="padding: 0.5rem 0; border-bottom: 1px solid ${borderColor}; color: ${textColor}; font-weight: ${fontWeight};">${icon}${f.name}</div>`;
+                }).join('');
 
                 card.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
